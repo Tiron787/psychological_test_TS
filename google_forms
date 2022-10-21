@@ -1,0 +1,326 @@
+function onOpen() {
+  var sheet = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1tEXX3B5HQAaTA9zxYNedmC9KY4JLMwjzB_MK2Q7fWQM/edit#gid=1453993068");
+  var entries = [{name : "подсчитать последнего пациента",functionName : "recountSend"}];
+  sheet.addMenu("Скрипты", entries);
+      
+}
+function recountSend() {
+
+  var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1tEXX3B5HQAaTA9zxYNedmC9KY4JLMwjzB_MK2Q7fWQM/edit#gid=1453993068");// заносим в ss ТАБЛИЦУ
+  var ssAnswers = ss.getSheetByName("Ответы на форму (4)");     //подключаем листы
+  var ssResult = ss.getSheetByName("Результат ответа на форму");  //подключаем листы
+  
+  var lastAnswer=ssAnswers.getLastRow();    // вся последняя строка из таблицы 1
+  
+  var lr = ssResult.getLastRow();       //вся последняя стока листа 2
+  var lc = ssResult.getLastColumn();    //вся последняя колонка листа 2 /
+  
+  var RangeUserData=ssAnswers.getRange(lastAnswer,1,1,5).getValues();      //получаем информацию о пользователе
+      ssResult.getRange(lr+1,1,1,5).setValues(RangeUserData);              //вставляем информацию о пользователе
+  
+                                                        
+  var answerRangeValuesPart1=ssAnswers.getRange(lastAnswer, 5, 1, 23).getValues(); //Диапазон раздела 1
+      part1(answerRangeValuesPart1,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart2=ssAnswers.getRange(lastAnswer, 25, 1, 25).getValues();//Диапазон раздела 2 
+      part2(answerRangeValuesPart2,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart3=ssAnswers.getRange(lastAnswer, 47, 1, 19).getValues();//Диапазон раздела 3
+      part3(answerRangeValuesPart3,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart4=ssAnswers.getRange(lastAnswer, 63, 1, 9).getValues(); //Диапазон раздела 4
+      part4(answerRangeValuesPart4,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart5=ssAnswers.getRange(lastAnswer, 72, 1, 6).getValues(); //Диапазон раздела 5  
+      part5(answerRangeValuesPart5,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart6=ssAnswers.getRange(lastAnswer, 75, 1, 20).getValues();//Диапазон раздела 6
+      part6(answerRangeValuesPart6,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart7=ssAnswers.getRange(lastAnswer, 93, 1, 7).getValues(); //Диапазон раздела 7  
+      part7(answerRangeValuesPart7,lr,lastAnswer,ssResult,ssAnswers);
+  var answerRangeValuesPart8=ssAnswers.getRange(lastAnswer, 97, 1, 15).getValues();//Диапазон раздела 8
+      part8(answerRangeValuesPart8,lr,lastAnswer,ssResult,ssAnswers);
+  
+  //------------------------------
+  
+  
+  //-------------------------------
+//интервал -3
+//
+//console.log(answerRangeValuesPart5); 
+ 
+  
+  function part1(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=1;
+        break;
+      case 'б':bal=2;
+        break;
+      case 'в':bal=3;
+        break;
+      case 'г':bal=4;
+        break;
+      case 'д':bal=5;
+        break;
+
+    }
+         answerRange[0][i]=bal;            // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 5, 1, 23).setValues(answerRange);      //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,6,1,1).setValue(Answer);
+
+}
+
+  //-------------------------------------------------------------
+  
+  function part2(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=0;
+        break;
+      case 'б':bal=1;
+        break;
+      case 'в':bal=2;
+        break;
+      case 'г':bal=3;
+        break;
+      case 'д':bal=4;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 25, 1, 25).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,7,1,1).setValue(Answer);
+
+}
+  
+  function part3(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=1;
+        break;
+      case 'б':bal=2;
+        break;
+      case 'в':bal=3;
+        break;
+      case 'г':bal=4;
+        break;
+      case 'д':bal=5;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 47, 1, 19).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,8,1,1).setValue(Answer);
+
+}
+  //______________________________________________________________
+  
+  function part4(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=0;
+        break;
+      case 'б':bal=1;
+        break;
+      case 'в':bal=2;
+        break;
+      case 'г':bal=3;
+        break;
+      case 'д':bal=4;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 63, 1, 9).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,9,1,1).setValue(Answer);
+
+}
+  
+  function part5(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+//    for (var i=3;i<answerRange[0].length;i++){
+//    var bal=0;
+//    
+//    switch (answerRange[0][i].split(')')[0]){
+//      case 'а':bal=0;
+//        break;
+//      case 'б':bal=1;
+//        break;
+//      case 'в':bal=2;
+//        break;
+//      case 'г':bal=3;
+//        break;
+//      case 'д':bal=4;
+//        break;
+
+//    }
+//         answerRange[0][i]=bal; // присваиваем массиву результат замены
+//    }
+    
+  //ssAnswers.getRange(lastAnswer, 70, 1, 5).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=0;i<answerRange[0].length;i++)
+  {
+    Answer+=answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,10,1,1).setValue([Answer]);
+
+}
+  //-----------------------------------------
+  
+  function part6(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=1;
+        break;
+      case 'б':bal=2;
+        break;
+      case 'в':bal=3;
+        break;
+      case 'г':bal=4;
+        break;
+      case 'д':bal=5;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 75, 1, 20).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  
+    var PlusOne = ssAnswers.getRange(lastAnswer, 95, 1, 1).getValues();
+    var PlusOneDigit = Number(PlusOne);    
+    var Answer=0;
+      
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ Answer += PlusOneDigit;
+     ssResult.getRange(lr+1,11,1,1).setValue(Answer);
+
+}
+  
+  function part7(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=1;
+        break;
+      case 'б':bal=2;
+        break;
+      case 'в':bal=3;
+        break;
+      case 'г':bal=4;
+        break;
+      case 'д':bal=5;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 93, 1, 7).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,12,1,1).setValue(Answer);
+
+}
+  
+  //-----------------------------------------
+  function part8(answerRange,lr,lastAnswer,ssResult,ssAnswers){
+    
+    for (var i=3;i<answerRange[0].length;i++){
+    var bal=0;
+    
+    switch (answerRange[0][i].split(')')[0]){
+      case 'а':bal=1;
+        break;
+      case 'б':bal=2;
+        break;
+      case 'в':bal=3;
+        break;
+      case 'г':bal=4;
+        break;
+      case 'д':bal=5;
+        break;
+
+    }
+         answerRange[0][i]=bal; // присваиваем массиву результат замены
+    }
+    
+  ssAnswers.getRange(lastAnswer, 97, 1, 15).setValues(answerRange);  //вставляем данные с баллами в определенные ячейки
+  var Answer=0
+
+  for (var i=3;i<answerRange[0].length;i++)
+  {
+    var Answer=Answer+answerRange[0][i];
+  }
+ ssResult.getRange(lr+1,13,1,1).setValue(Answer);
+
+}
+  
+  //-----------------------------------------
+  function mainCount(ssResult){
+   var TotalRange = ssResult.getRange(lr+1,6,1,8).getValues();
+  var sum = 0;
+    for(var i = 0; i < TotalRange[0].length; i++)
+{
+    sum += TotalRange[0][i];
+}
+   ssResult.getRange(lr+1,14,1,1).setValue(sum);
+   }
+
+mainCount(ssResult);
+  
+}
